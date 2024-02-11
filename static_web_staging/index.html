@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>🐶</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <script type="module" src="static/js/bundle.js"></script>
+
+    <script>
+        const serverUrl = 'SERVER_URL_PLACEHOLRDER';
+		
+		// ----------------------------------
+		// | Digial signature stuff
+		// ----------------------------------
+
+        const publicKey = `-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvLPHZjfk8tPxmRfQ9Fkh
+        J2oyRQFP98AFLOKd/u2C/zxdt1UTWSDAhc8T02lPtJn1XU+qgjZTvPEyy6xb5NwK
+        4yM+BdDtaRG2cLuuJ+EWhKLzUOtMW37AhCk/tJwhvJn2awQwKtdfC6Me5mapBUtW
+        XU6ViRRMgioDVn+VadMEylcfnXFgZ5iW1vdcRx1CWfPHURgspQzMMSMxGh4UEwxG
+        o/HwuwUGVjs1LXA12ZpGcpyZ+sf+dKWjQv/xHA4WGDba1lGwn8G/nX6KPr6VAQTU
+        UF7s1H6D/gnClZRNdnMpUJpWcXT5Cr3d1aGNJB/8bft+XAvSRmDrDjBmRKROUJM1
+        RQIDAQAB
+        -----END PUBLIC KEY-----`;
+        
+        const verify_data = (data, signature, pem_public) => {
+            try {
+                const publicKey = forge.pki.publicKeyFromPem(pem_public);
+                const binarySignature = forge.util.decode64(signature);
+                const md = forge.md.sha256.create();
+                md.update(data, 'utf8');
+                return publicKey.verify(md.digest().bytes(), binarySignature);
+            } catch (e) {
+                console.error("Error verifying signature:", e);
+                return false;
+            }
+        };
+
+
+		// ----------------------------------
+		// | Snackbar
+		// ----------------------------------
+		
+		function showSnackbar(message = null) {
+			var snackbar = document.getElementById("snackbar");
+			if (message != null){
+				snackbar.innerHTML = message
+			}
+			snackbar.style.visibility = "visible";
+			setTimeout(function(){ snackbar.style.visibility = "hidden"; }, 4000);
+		}
+
+		// ----------------------------------
+		// | Fetch content from server
+		// ----------------------------------
+		// | Initial screen
+		
+        function fetchDogScreenFromServer() {
+            // Replace with your Heroku app's URL
+
+            fetch(serverUrl + "/")
+                .then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					
+					const signature = response.headers.get('X-Custom-Signature-Header'); // Replace with actual header name
+					return Promise.all([response.text(), signature]);
+				})
+                .then(([html, signature]) => {
+                    // Display the fetched data in the 'content' div
+					
+					if (verify_data(html, signature, publicKey)) {
+						document.getElementById('content').innerHTML = html;
+						addListenersToDogScreenElements()
+					} else {
+						throw new Error('Signature verification failed');
+					}
+                })
+                .catch(error => {
+					console.error('Error fetching data: ', error);
+					if (error.message == 'Signature verification failed'){
+						document.getElementById('content').innerHTML = 'Error loading content. Invalid content signature.';
+					} else {
+						document.getElementById('content').innerHTML = 'Error loading content.';
+					}
+                });
+        }
+		
+		// ----------------------------------
+		// | Initial screen listeners
+        function addListenersToDogScreenElements() {
+            document.querySelector('#dog-breed-list-request-button').addEventListener('click', function() {
+                fetchDogListFromServer()
+            });
+        }		
+
+		// ----------------------------------
+		// | Dog List		
+		
+        let dogsLoaded = false;
+		
+		function fetchDogListFromServer() {
+			if (!dogsLoaded) {
+				// Show loading spinner
+				document.getElementById('progress-spinner-container').style.display = 'flex';
+			}
+
+			fetch(serverUrl + '/renderBreeds')
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					const signature = response.headers.get('X-Custom-Signature-Header'); // Replace with actual header name
+					
+					return Promise.all([response.text(), signature]);
+				})
+				.then(([html, signature]) => {
+					if (verify_data(html, signature, publicKey)) {
+						document.getElementById('breed-list-container').innerHTML = html;
+					document.getElementById('progress-spinner-container').style.display = 'none';
+					dogsLoaded = true;
+					} else {
+						throw new Error('Signature verification failed');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					//Display user facing snackbar on error
+					if (error.message == 'Signature verification failed'){
+						showSnackbar("The application encountered an invalid data signature while trying to fetch data from external services. Please try again later.")
+					} else {
+						showSnackbar() 
+					}
+					
+					// Hide loading spinner
+					document.getElementById('progress-spinner-container').style.display = 'none';
+				});					
+		}
+		
+		// -------------------------------------------
+		// | Trigger initial content to be fetched
+		// -------------------------------------------
+        window.onload = fetchDogScreenFromServer;
+		
+    </script>
+
+	<body>
+		<div id="content">
+			<!-- Content from server app will be displayed here -->
+		</div>
+	</body>
+
+
+</html>
