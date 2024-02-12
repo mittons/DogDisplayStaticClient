@@ -35,7 +35,7 @@ I paste this here for reference:
 
 #### Versioning
 
-We use [Semantic Versioning](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/mittons/IveChosenTheIntentToSeekPandorasHopeAsMyChains-OfAllChoices-ThatOne-IfItIsEvenUpToMe-ThatChoise-IsMyFirstChoiceForChoisesToForgo--IWillSeekHope--InPerpetuity-Or-UntilNoOneLacksChoice-IChooseChains-RejectFreedom-AtleastUntil-UntilNoHumanHasChainsTheyDidNotChoose-ThenIMightReevaluate---ButUntilTheseConditionsAreMet-IRejectTheChoiceToChangeMyDecision-IChooseChains-IRejectFreedom---MyDevotionInLifeIsRealizingPandorasHope--AndIHaveNoChoice--NotAnyMore-NotUntilTheTaskIsFinished/tags). 
+We use [Semantic Versioning](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/mittons/DogDisplayStaticClient/tags). 
 
 </details>
 
