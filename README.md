@@ -41,9 +41,7 @@ We use [Semantic Versioning](https://semver.org/) for versioning. For the versio
 
 ## Roadmap
 
-BLABLAH.
-- [ ] Create ROADMAP.md
-- [ ] Make sure generate THIRD_PARTY_LICENSES is on the initial roadmap
+A roadmap for the project is accessible in the [ROADMAP.md file](ROADMAP.md). It will continue to be a part of this project until the project/repository has been realized, to a reasonable degree, towards its intended purpose.
 
 ## Acknowledgements
 - **The Dog API:** This application uses data from [The Dog API](https://www.thedogapi.com). I route the traffic through my own private backend proxy in order to secure my user key for the API, in line with the [The Dog API TOS](https://thedogapi.com/terms).
