@@ -14,4 +14,15 @@
 
 - **Third party licensing scripts:** Scripts that automate setting up a clean execution environment with minimum installed dependencies for the project, extraction of the set of dependencies and their liences info, generation of full third_party_liences text. Provided as a "to-my-best-knowledge" effort, may not be completely reflective of all attributions by external parties to the dependenices of this project, but provided in good faith and with the intent to maintain attibution information to the standard of "to-my-best-knowledge", to the best of my capabilities.
 
-- **Roadmap:** To clarify future intended development efforts, promote accountability towards self in terms of intended actions, and finally, to create some slack between ideal implementation and published implementation.\
+- **Roadmap:** To clarify future intended development efforts, promote accountability towards self in terms of intended actions, and finally, to create some slack between ideal implementation and published implementation.
+
+## [0.2.0] - 2024-03-07
+
+### Changed
+
+- **Picked up the litter, placed it somewhere nice:**
+  - I wrote a really long comment in the `scripts/run_target_test_servers.sh` file. [Link to the file in a commit before the comment was removed](https://github.com/mittons/DogDisplayStaticClient/blob/e10acf6f6aca32ed10839c49cf6e5d5ab62d1b7a/dev_scripts/run_target_test_servers.sh
+). The comment is on topic, well.. sort of. And it's very reflective on what was going on in the file and then it became self-reflective on its own existence. And yeah. On coding conventions, what should go into collaborative/public space, contextual fit and human behaviour in general.
+  - The code file is meant to run the target test servers, not preach about ideas such as coding conventions, what should go into collaborative/public space, contextual fit and human behaviour in general. So having a comment that preaches on those ideas doesn't fit the context of that code file. It does not belong in the latest/working version of that file. In that context it is litter.
+  - I think the comment is on point, well structured.. and I probably shouldn't be tooting my horn.. but I also think it's clever. It doesn't fit in the current version, but it's certainly valid. So it gets a place in version control history. I already set this up a long time ago.
+  - This change was planned before I [committed the comment on Feb 11, 2024](https://github.com/mittons/DogDisplayStaticClient/commit/4446b134386375a6880444d3213cbc2b038d7fc7) and before I [committed the roadmap to the repo on Feb 12, 2024](https://github.com/mittons/DogDisplayStaticClient/commit/338eeb18e2137c538ec8a3dfc097e5301123ebdf). And the roadmap makes it clear, there is an item on the roadmap "Pick up litter. Put it somewhere nice.", this commit and version update were pre-planned.

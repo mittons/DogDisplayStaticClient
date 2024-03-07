@@ -12,7 +12,7 @@ This roadmap details planned changes to the state of this project/repository:
 - [ ] Set up readmes.
 - [X] Set up license (5 min).
 - [X] Third party licence generation.
-- [ ] Pick up litter. Put it somewhere nice.
+- [X] Pick up litter. Put it somewhere nice.
 - [ ] Public key dependency injection.
 - [ ] Implement code that properly generates static_web_build.
 - [ ] Explore SRI.
