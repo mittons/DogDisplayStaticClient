@@ -7,7 +7,7 @@ This roadmap details planned changes to the state of this project/repository:
 - [ ] Rename scripts that still have placeholder names
 - [ ] Fix Server_URL_PLACEHOLRDER constant in build_tests.sh
 - [ ] Remove server port from build_tests.sh
-- [ ] Rename build_tests.sh to build_e2e_tests.sh
+- [X] Rename build_tests.sh to build_e2e_tests.sh
 - [ ] Set up versioning.
 - [ ] Set up readmes.
 - [X] Set up license (5 min).

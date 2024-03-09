@@ -26,3 +26,9 @@
   - The code file is meant to run the target test servers, not preach about ideas such as coding conventions, what should go into collaborative/public space, contextual fit and human behaviour in general. So having a comment that preaches on those ideas doesn't fit the context of that code file. It does not belong in the latest/working version of that file. In that context it is litter.
   - I think the comment is on point, well structured.. and I probably shouldn't be tooting my horn.. but I also think it's clever. It doesn't fit in the current version, but it's certainly valid. So it gets a place in version control history. I already set this up a long time ago.
   - This change was planned before I [committed the comment on Feb 11, 2024](https://github.com/mittons/DogDisplayStaticClient/commit/4446b134386375a6880444d3213cbc2b038d7fc7) and before I [committed the roadmap to the repo on Feb 12, 2024](https://github.com/mittons/DogDisplayStaticClient/commit/338eeb18e2137c538ec8a3dfc097e5301123ebdf). And the roadmap makes it clear, there is an item on the roadmap "Pick up litter. Put it somewhere nice.", this commit and version update were pre-planned.
+
+
+## [0.2.1] - 2024-03-08
+
+- **Showcased a continous, daily progress by checking off an item on the roadmap list:**
+  - [But it was already completed](https://github.com/mittons/DogDisplayStaticClient/blob/df0ba0b3efaa5b00c97ba7fcf3eedeceddd74de4/deployment_scripts/build_e2e_tests.sh), so it was an easy task 😈.
