@@ -104,15 +104,13 @@ rsync -av --exclude-from="$e2eTestsStaging/.gitignore" "$e2eTestsStaging/" "${ou
 rsync -av --exclude-from="$staticWebStaging/.gitignore" "$staticWebStaging/" "${outputFolder}/e2e_tests_build/static_web_test/"
 rsync -av --exclude-from="$staticWebStaging/.gitignore" "$staticWebStaging/" "${outputFolder}/static_web_build/"
 
-
-# Implement your specific script logic here
+# Make an instance of the index file for each test case 
 cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_init_index.html"
 cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_list_index.html"
 cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}/e2e_tests_build/static_web_test/server_error_for_list_index.html"
 cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}/e2e_tests_build/static_web_test/success_index.html"
 
-
-# Implement your specific script logic here
+# Inject test case specific variables into test case index files
 sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8201/" "${outputFolder}/e2e_tests_build/static_web_test/success_index.html"
 sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8301/" "${outputFolder}/e2e_tests_build/static_web_test/server_error_for_list_index.html"
 sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8401/" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_list_index.html"

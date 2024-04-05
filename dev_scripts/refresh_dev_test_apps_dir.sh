@@ -1,12 +1,12 @@
 #!/bin/bash
 
-####
+########
 # Script that refreshes the dev_test_apps_dir folder
 # - A folder containing temporary copies of most/all of the application executables we use for the "automate_full_test_cycle.sh scripts"
 # - Script assumes we are inside DogDisplayStaticClient repo dir, specifically rootDir/dev_scripts.
 #   - Script assumes the dev_test_apps_dir folder should be located at rootDir/dev_test_apps_dir.
 # Also creates/updates the local env file with paths for any programs inside the dev_test_apps_dir. 
-##
+###
 
 # Define the dev scripts directory and move into it
 DEV_SCRIPTS_DIR=$(readlink -f $(dirname "$0"))
@@ -15,9 +15,9 @@ cd "$DEV_SCRIPTS_DIR"
 # Move to parent folder
 cd ..
 
-####
+########
 # Create/recreate dev_test_apps_dir (rm -rf if it already exists for 'refresh')
-##
+###
 
 DEV_TEST_APPS_DIR="dev_test_apps_dir"
 rm -rf "$DEV_TEST_APPS_DIR"
@@ -25,9 +25,9 @@ mkdir "$DEV_TEST_APPS_DIR"
 cd "$DEV_TEST_APPS_DIR"
 
 
-####
+########
 # Fetch chromedriver (place exe into dev_test_apps_dir root)
-##
+###
 
 # Determine the platform (Linux/WSL/Windows)
 if [ "$OS" = "Windows_NT" ]; then
@@ -64,9 +64,10 @@ else
     CHROMEDRIVER_PATH="$PWD/chromedriver-linux64/chromedriver"
 fi
 
-####
+########
 # Clone projects into dev_test_apps_dir
-##
+###
+
 # Cpp
 git clone "https://github.com/mittons/DogDisplayForCpp.git"
 cp -r "DogDisplayForCpp" "DogDisplayForCpp_Prod"
@@ -91,9 +92,11 @@ cd "MockDogApiDec19"
 docker build -t mockdogapidec19 .
 cd ..
 
-####
+
+
+########
 # Build projects (including making copies of cloned repos if needed)
-##
+###
 
 # Python
 DOG_DISPLAY_FOR_PYTHON_PATH="$PWD/DogDisplayForPython"
@@ -101,7 +104,8 @@ DOG_DISPLAY_FOR_PYTHON_PATH="$PWD/DogDisplayForPython"
 # CppMock
 cd DogDisplayForCpp_Mock
 
-build_script.sh
+chmod +x ./build_script.sh 
+./build_script.sh
 
 DOG_DISPLAY_FOR_CPP_MOCK_PATH="$PWD"
 cd ..
@@ -110,7 +114,8 @@ cd ..
 
 cd DogDisplayForCpp_Prod
 
-build_script.sh -p
+chmod +x ./build_script.sh
+./build_script.sh -p
 
 DOG_DISPLAY_FOR_CPP_PROD_PATH="$PWD"
 cd ..
@@ -136,9 +141,9 @@ cd ..
 
 cd "$DEV_SCRIPTS_DIR"
 
-####
+########
 # Build env file with paths
-##
+###
 
 ENV_FILE="./dev_script_dependency_paths.env"
 TEMPLATE_ENV_FILE="./dev_script_dependency_paths.env-example"
@@ -150,6 +155,7 @@ fi
 sed -i "s|CHROMEDRIVER_PATH=.*|CHROMEDRIVER_PATH=\"$CHROMEDRIVER_PATH\"|" "$ENV_FILE"
 
 sed -i "s|DOG_DISPLAY_FOR_PYTHON_PATH=.*|DOG_DISPLAY_FOR_PYTHON_PATH=\"$DOG_DISPLAY_FOR_PYTHON_PATH\"|" "$ENV_FILE"
+
 sed -i "s|DOG_DISPLAY_FOR_PHP_MOCK_PATH=.*|DOG_DISPLAY_FOR_PHP_MOCK_PATH=\"$DOG_DISPLAY_FOR_PHP_MOCK_PATH\"|" "$ENV_FILE"
 sed -i "s|DOG_DISPLAY_FOR_PHP_PROD_PATH=.*|DOG_DISPLAY_FOR_PHP_PROD_PATH=\"$DOG_DISPLAY_FOR_PHP_PROD_PATH\"|" "$ENV_FILE"
 
@@ -157,7 +163,5 @@ sed -i "s|DOG_DISPLAY_FOR_CPP_MOCK_PATH=.*|DOG_DISPLAY_FOR_CPP_MOCK_PATH=\"$DOG_
 sed -i "s|DOG_DISPLAY_FOR_CPP_PROD_PATH=.*|DOG_DISPLAY_FOR_CPP_PROD_PATH=\"$DOG_DISPLAY_FOR_CPP_PROD_PATH\"|" "$ENV_FILE"
 
 
-# TODO: Add other `sed` commands for paths required by the env file that are created as a result of this script.
-
-# Return to initial directory just in case
+# Return to initial directory to return to the original state
 cd "$DEV_SCRIPTS_DIR"

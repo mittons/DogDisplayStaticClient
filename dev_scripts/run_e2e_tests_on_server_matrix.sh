@@ -21,7 +21,7 @@ BASE_PATH="$1"
 E2E_TESTS_PATH="$BASE_PATH/e2e_tests_build"
 
 # Array of port numbers to iterate over
-PORTS=(5678 5679 7776 7777 8000 8001)
+PORTS=(5678 5679 7777 7778 8000 8001)
 
 # Iterate over each port
 for PORT in "${PORTS[@]}"; do
