@@ -64,18 +64,19 @@ else
     CHROMEDRIVER_PATH="$PWD/chromedriver-linux64/chromedriver"
 fi
 
-# Note: The script assumes that wget, unzip, and chmod are available on the system.
-# For Windows or WSL, you might need to adjust the commands or use alternative methods
-# to download and extract files if these tools are not available.
-
-
-
 ####
 # Clone projects into dev_test_apps_dir
 ##
+# Cpp
 git clone "https://github.com/mittons/DogDisplayForCpp.git"
+
+# PHP
 git clone "https://github.com/mittons/DogDisplayForPhp.git"
+
+# Python
 git clone "https://github.com/mittons/DogDisplayForPython.git"
+
+# MockDogApi
 git clone "https://github.com/mittons/MockDogApiDec19.git"
 
 ####
@@ -91,11 +92,13 @@ cd ..
 # Build projects (including making copies of cloned repos if needed)
 ##
 
+# Python
+DOG_DISPLAY_FOR_PYTHON_PATH="$PWD/DogDisplayForPython"
+
 # - CppMock
 # - CppProd
 # - PhpMock
 # - PhpProd
-# - Python?
 
 cd "$DEV_SCRIPTS_DIR"
 
@@ -111,6 +114,8 @@ fi
 
 # Sed relevant paths into env file
 sed -i "s|CHROMEDRIVER_PATH=.*|CHROMEDRIVER_PATH=\"$CHROMEDRIVER_PATH\"|" "$ENV_FILE"
+
+sed -i "s|DOG_DISPLAY_FOR_PYTHON_PATH=.*|DOG_DISPLAY_FOR_PYTHON_PATH=\"$DOG_DISPLAY_FOR_PYTHON_PATH\"|" "$ENV_FILE"
 
 # TODO: Add other `sed` commands for paths required by the env file that are created as a result of this script.
 
