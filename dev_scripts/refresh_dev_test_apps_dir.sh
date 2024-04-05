@@ -72,6 +72,8 @@ git clone "https://github.com/mittons/DogDisplayForCpp.git"
 
 # PHP
 git clone "https://github.com/mittons/DogDisplayForPhp.git"
+cp -r "DogDisplayForPhp" "DogDisplayForPhp_Prod"
+mv "DogDisplayForPhp" "DogDisplayForPhp_Mock"
 
 # Python
 git clone "https://github.com/mittons/DogDisplayForPython.git"
@@ -95,10 +97,27 @@ cd ..
 # Python
 DOG_DISPLAY_FOR_PYTHON_PATH="$PWD/DogDisplayForPython"
 
-# - CppMock
-# - CppProd
-# - PhpMock
-# - PhpProd
+# CppMock
+# CppProd
+
+# PhpMock
+cd DogDisplayForPhp_Mock
+cp .env-example .env
+sed -i "s|DOG_SERVICE_BASE_URL=.*|DOG_SERVICE_BASE_URL='http://localhost:3019'|" .env
+
+composer install
+
+DOG_DISPLAY_FOR_PHP_MOCK_PATH="$PWD"
+cd ..
+
+# PhpProd
+cd DogDisplayForPhp_Prod
+cp .env-example .env
+
+composer install
+
+DOG_DISPLAY_FOR_PHP_PROD_PATH="$PWD"
+cd ..
 
 cd "$DEV_SCRIPTS_DIR"
 
@@ -116,6 +135,9 @@ fi
 sed -i "s|CHROMEDRIVER_PATH=.*|CHROMEDRIVER_PATH=\"$CHROMEDRIVER_PATH\"|" "$ENV_FILE"
 
 sed -i "s|DOG_DISPLAY_FOR_PYTHON_PATH=.*|DOG_DISPLAY_FOR_PYTHON_PATH=\"$DOG_DISPLAY_FOR_PYTHON_PATH\"|" "$ENV_FILE"
+sed -i "s|DOG_DISPLAY_FOR_PHP_MOCK_PATH=.*|DOG_DISPLAY_FOR_PHP_MOCK_PATH=\"$DOG_DISPLAY_FOR_PHP_MOCK_PATH\"|" "$ENV_FILE"
+sed -i "s|DOG_DISPLAY_FOR_PHP_PROD_PATH=.*|DOG_DISPLAY_FOR_PHP_PROD_PATH=\"$DOG_DISPLAY_FOR_PHP_PROD_PATH\"|" "$ENV_FILE"
+
 
 # TODO: Add other `sed` commands for paths required by the env file that are created as a result of this script.
 
