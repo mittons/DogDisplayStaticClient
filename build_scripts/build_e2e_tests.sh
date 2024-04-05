@@ -111,11 +111,11 @@ cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}
 cp "${outputFolder}/e2e_tests_build/static_web_test/index.html" "${outputFolder}/e2e_tests_build/static_web_test/success_index.html"
 
 # Inject test case specific variables into test case index files
-sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8201/" "${outputFolder}/e2e_tests_build/static_web_test/success_index.html"
-sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8301/" "${outputFolder}/e2e_tests_build/static_web_test/server_error_for_list_index.html"
-sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8401/" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_list_index.html"
-sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:8501/" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_init_index.html"
+sed -i "s/SERVER_URL_PLACEHOLDER/http:\/\/localhost:8201/" "${outputFolder}/e2e_tests_build/static_web_test/success_index.html"
+sed -i "s/SERVER_URL_PLACEHOLDER/http:\/\/localhost:8301/" "${outputFolder}/e2e_tests_build/static_web_test/server_error_for_list_index.html"
+sed -i "s/SERVER_URL_PLACEHOLDER/http:\/\/localhost:8401/" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_list_index.html"
+sed -i "s/SERVER_URL_PLACEHOLDER/http:\/\/localhost:8501/" "${outputFolder}/e2e_tests_build/static_web_test/invalid_sig_for_init_index.html"
 
-sed -i "s/SERVER_URL_PLACEHOLRDER/http:\/\/localhost:$serverPort/" "${outputFolder}/e2e_tests_build/static_web_test/index.html"
+sed -i "s/SERVER_URL_PLACEHOLDER/http:\/\/localhost:$serverPort/" "${outputFolder}/e2e_tests_build/static_web_test/index.html"
 
 
