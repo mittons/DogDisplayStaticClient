@@ -69,6 +69,8 @@ fi
 ##
 # Cpp
 git clone "https://github.com/mittons/DogDisplayForCpp.git"
+cp -r "DogDisplayForCpp" "DogDisplayForCpp_Prod"
+mv "DogDisplayForCpp" "DogDisplayForCpp_Mock"
 
 # PHP
 git clone "https://github.com/mittons/DogDisplayForPhp.git"
@@ -89,7 +91,6 @@ cd "MockDogApiDec19"
 docker build -t mockdogapidec19 .
 cd ..
 
-# Placeholder for building projects. Replace with actual build commands for each project.
 ####
 # Build projects (including making copies of cloned repos if needed)
 ##
@@ -98,7 +99,21 @@ cd ..
 DOG_DISPLAY_FOR_PYTHON_PATH="$PWD/DogDisplayForPython"
 
 # CppMock
+cd DogDisplayForCpp_Mock
+
+build_script.sh
+
+DOG_DISPLAY_FOR_CPP_MOCK_PATH="$PWD"
+cd ..
+
 # CppProd
+
+cd DogDisplayForCpp_Prod
+
+build_script.sh -p
+
+DOG_DISPLAY_FOR_CPP_PROD_PATH="$PWD"
+cd ..
 
 # PhpMock
 cd DogDisplayForPhp_Mock
@@ -137,6 +152,9 @@ sed -i "s|CHROMEDRIVER_PATH=.*|CHROMEDRIVER_PATH=\"$CHROMEDRIVER_PATH\"|" "$ENV_
 sed -i "s|DOG_DISPLAY_FOR_PYTHON_PATH=.*|DOG_DISPLAY_FOR_PYTHON_PATH=\"$DOG_DISPLAY_FOR_PYTHON_PATH\"|" "$ENV_FILE"
 sed -i "s|DOG_DISPLAY_FOR_PHP_MOCK_PATH=.*|DOG_DISPLAY_FOR_PHP_MOCK_PATH=\"$DOG_DISPLAY_FOR_PHP_MOCK_PATH\"|" "$ENV_FILE"
 sed -i "s|DOG_DISPLAY_FOR_PHP_PROD_PATH=.*|DOG_DISPLAY_FOR_PHP_PROD_PATH=\"$DOG_DISPLAY_FOR_PHP_PROD_PATH\"|" "$ENV_FILE"
+
+sed -i "s|DOG_DISPLAY_FOR_CPP_MOCK_PATH=.*|DOG_DISPLAY_FOR_CPP_MOCK_PATH=\"$DOG_DISPLAY_FOR_CPP_MOCK_PATH\"|" "$ENV_FILE"
+sed -i "s|DOG_DISPLAY_FOR_CPP_PROD_PATH=.*|DOG_DISPLAY_FOR_CPP_PROD_PATH=\"$DOG_DISPLAY_FOR_CPP_PROD_PATH\"|" "$ENV_FILE"
 
 
 # TODO: Add other `sed` commands for paths required by the env file that are created as a result of this script.

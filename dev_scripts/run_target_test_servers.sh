@@ -55,6 +55,15 @@ start_process() {
 trap cleanup SIGINT SIGTERM
 trap "cleanup; exit" EXIT
 
+
+# Determine the platform (Windows/WSL/Linux)
+if [ "$OS" = "Windows_NT" ] || grep -qi microsoft /proc/version; then
+    DOG_DISPLAY_FOR_CPP_EXE_PATH="./build/src/Release/DogDisplayForCpp.exe"
+else
+    DOG_DISPLAY_FOR_CPP_EXE_PATH="./build/src/DogDisplayForCpp"
+fi
+
+
 # Python Mock
 python $DOG_DISPLAY_FOR_PYTHON_PATH/main.py & echo $! >> "$script_dir/tmp_test_server_pids.txt"
 
@@ -64,10 +73,10 @@ python $DOG_DISPLAY_FOR_PYTHON_PATH/main_dev.py & echo $! >> "$script_dir/tmp_te
 export FLASK_ENV=''
 
 # C++ Mock
-(cd $DOG_DISPLAY_FOR_CPP_MOCK_PATH && ./DogDisplayForCpp.exe & echo $! >> "$script_dir/tmp_test_server_pids.txt")
+(cd $DOG_DISPLAY_FOR_CPP_MOCK_PATH && DOG_DISPLAY_FOR_CPP_EXE_PATH & echo $! >> "$script_dir/tmp_test_server_pids.txt")
 
 # C++ Prod
-(cd $DOG_DISPLAY_FOR_CPP_PROD_PATH  && ./DogDisplayForCpp.exe & echo $! >> "$script_dir/tmp_test_server_pids.txt")
+(cd $DOG_DISPLAY_FOR_CPP_PROD_PATH  && DOG_DISPLAY_FOR_CPP_EXE_PATH & echo $! >> "$script_dir/tmp_test_server_pids.txt")
 
 # PHP Mock
 (cd $DOG_DISPLAY_FOR_PHP_MOCK_PATH && php artisan serve & echo $! >> "$script_dir/tmp_test_server_pids.txt")
