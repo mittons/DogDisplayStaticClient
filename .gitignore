@@ -14,3 +14,5 @@ node_modules/
 dev_script_dependency_paths.env
 
 venv/
+
+dev_test_apps_dir/

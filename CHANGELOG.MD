@@ -32,3 +32,8 @@
 
 - **Showcased a continous, daily progress by checking off an item on the roadmap list:**
   - [But it was already completed](https://github.com/mittons/DogDisplayStaticClient/blob/df0ba0b3efaa5b00c97ba7fcf3eedeceddd74de4/deployment_scripts/build_e2e_tests.sh), so it was an easy task 😈.
+  
+## [0.2.2] - 2024-04-05
+
+- **Started setting up a script that fetches and builds most/all dependencies for running the full automated test cycle script**
+  - Also included the ChatGPT promt used to generate the script, as it is in the code now, for version control documentation purposes, but it will be removed in a later commit.
