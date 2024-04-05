@@ -15,29 +15,82 @@ cd "$DEV_SCRIPTS_DIR"
 # Move to parent folder
 cd ..
 
+####
 # Create/recreate dev_test_apps_dir (rm -rf if it already exists for 'refresh')
+##
+
 DEV_TEST_APPS_DIR="dev_test_apps_dir"
 rm -rf "$DEV_TEST_APPS_DIR"
 mkdir "$DEV_TEST_APPS_DIR"
 cd "$DEV_TEST_APPS_DIR"
 
-# Fetch chromedriver (place exe into dev_test_apps_dir root)
-# TODO: Add commands to download chromedriver and place it in the current directory.
 
+####
+# Fetch chromedriver (place exe into dev_test_apps_dir root)
+##
+
+# Determine the platform (Linux/WSL/Windows)
+if [ "$OS" = "Windows_NT" ]; then
+    PLATFORM="windows"
+elif grep -qi microsoft /proc/version; then
+    PLATFORM="wsl"
+else
+    PLATFORM="linux"
+fi
+
+
+# Set the ChromeDriver version
+CHROMEDRIVER_VERSION="123.0.6312.105"
+
+# Download and unzip ChromeDriver
+if [ "$PLATFORM" = "windows" ] || [ "$PLATFORM" = "wsl" ]; then
+    DOWNLOAD_URL="https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/win64/chromedriver-win64.zip"
+    curl -o chromedriver-win64.zip "$DOWNLOAD_URL"
+
+    unzip chromedriver-win64.zip
+    chmod +x chromedriver-win64/chromedriver.exe
+    # Cleanup
+    rm chromedriver-win64.zip
+
+    CHROMEDRIVER_PATH="$PWD/chromedriver-win64/chromedriver.exe"
+else
+    DOWNLOAD_URL="https://storage.googleapis.com/chrome-for-testing-public/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
+    wget -o chromedriver-linux64.zip "$DOWNLOAD_URL"
+    unzip chromedriver-linux64.zip
+    chmod +x chromedriver-linux64/chromedriver
+    # Cleanup
+    rm chromedriver-linux64.zip
+
+    CHROMEDRIVER_PATH="$PWD/chromedriver-linux64/chromedriver"
+fi
+
+# Note: The script assumes that wget, unzip, and chmod are available on the system.
+# For Windows or WSL, you might need to adjust the commands or use alternative methods
+# to download and extract files if these tools are not available.
+
+
+
+####
 # Clone projects into dev_test_apps_dir
+##
 git clone "https://github.com/mittons/DogDisplayForCpp.git"
 git clone "https://github.com/mittons/DogDisplayForPhp.git"
 git clone "https://github.com/mittons/DogDisplayForPython.git"
 git clone "https://github.com/mittons/MockDogApiDec19.git"
 
+####
 # Build docker image for mockapi
+##
+
 cd "MockDogApiDec19"
-# TODO: Replace with actual Docker build command, assuming Dockerfile is present
 docker build -t mockdogapidec19 .
 cd ..
 
 # Placeholder for building projects. Replace with actual build commands for each project.
+####
 # Build projects (including making copies of cloned repos if needed)
+##
+
 # - CppMock
 # - CppProd
 # - PhpMock
@@ -46,7 +99,10 @@ cd ..
 
 cd "$DEV_SCRIPTS_DIR"
 
+####
 # Build env file with paths
+##
+
 ENV_FILE="./dev_script_dependency_paths.env"
 TEMPLATE_ENV_FILE="./dev_script_dependency_paths.env-example"
 if [ ! -f "$ENV_FILE" ]; then
@@ -54,7 +110,6 @@ if [ ! -f "$ENV_FILE" ]; then
 fi
 
 # Sed relevant paths into env file
-CHROMEDRIVER_PATH="$PWD/../$DEV_TEST_APPS_DIR/chromedriver" # Adjust this path as necessary
 sed -i "s|CHROMEDRIVER_PATH=.*|CHROMEDRIVER_PATH=\"$CHROMEDRIVER_PATH\"|" "$ENV_FILE"
 
 # TODO: Add other `sed` commands for paths required by the env file that are created as a result of this script.
