@@ -32,3 +32,30 @@
 
 - **Showcased a continous, daily progress by checking off an item on the roadmap list:**
   - [But it was already completed](https://github.com/mittons/DogDisplayStaticClient/blob/df0ba0b3efaa5b00c97ba7fcf3eedeceddd74de4/deployment_scripts/build_e2e_tests.sh), so it was an easy task 😈.
+  
+## [0.2.2] - 2024-04-05
+
+## Added
+
+- **Started setting up a script that fetches and builds most/all dependencies for running the full automated test cycle script**
+  - Also included the ChatGPT promt used to generate the script, as it is in the code now, for version control documentation purposes, but it will be removed in a later commit.
+
+## [0.3.0] - 2024-04-05
+
+### Added
+
+- **Automation of setting up most or all application dependencies for full testing of all combinations of the static client, cpp/php/python servers, and the mock/prod data sets**
+  - Added the script refresh_dev_test_apps_dir to the dev_scripts folder. It creates or refreshes the gitignored dev_test_apps_dir and populates it with the source for all of the server projects (cpp/php/python), the mock api source (built into docker image), and also fetches chromedriver. It builds/compiles all of the source code. Then finally it creates/updates the local env path file in the dev_scripts folder and populates/updates it with all the relevant paths to applications/resources in the dev_test_apps_dir.
+    - The only thing that needs to be added manually to the env file now is the path to a bash shell executable.
+    - Beyond that there is also generic stuff that should generally be in system/user path. Top of my mind: python, node, docker, general bash commands (like curl).
+    - The docker engine also needs to be booted up manually as is, before the automate_full_test_cycle script (in dev_scripts) is run.
+
+## [0.3.1] - 2024-04-05
+
+### Fixed
+
+- **Code quality fixes. Spelling mistakes, working titles, placeholder names, etc. amended properly**
+  - Renamed deployment_scripts to build_scripts. Integrated abc.sh into bcd.sh. Moved bcd.sh to build_scripts and renamed it into refresh_build.sh. The folder lets_go renamed to `build`.
+  - Spelling mistakes fixed.
+  - gitignore
+  - Roadmap updated.

@@ -37,13 +37,13 @@ echo "Target test servers started."
 
 # Serve static files for tests
 echo "Serving static files for tests..."
-"$DOGGO_BASH_PATH" -c "cd .. && ./bcd.sh && node ./lets_go/e2e_tests_build/utils/serve_static_for_tests.js" &
+"$DOGGO_BASH_PATH" -c "cd .. && ./bcd.sh && node ./build/e2e_tests_build/utils/serve_static_for_tests.js" &
 sleep 30
 echo "Static files being served."
 
 # Run end-to-end tests on server matrix
 echo "Running end-to-end tests on server matrix..."
-"$DOGGO_BASH_PATH" -c "cd .. && ./dev_scripts/run_e2e_tests_on_server_matrix.sh ./lets_go/; exec bash" &
+"$DOGGO_BASH_PATH" -c "cd .. && ./dev_scripts/run_e2e_tests_on_server_matrix.sh ./build/; exec bash" &
 echo "End-to-end tests initiated."
 
 echo ""

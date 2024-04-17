@@ -4,7 +4,7 @@ nppBackup/
 static_web_build/
 e2e_tests_build/
 
-lets_go/
+build/
 
 dev_scripts/tmp_long_running_dog_service_pids.txt
 dev_scripts/tmp_test_server_pids.txt
@@ -14,3 +14,5 @@ node_modules/
 dev_script_dependency_paths.env
 
 venv/
+
+dev_test_apps_dir/
